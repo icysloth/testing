@@ -66,7 +66,7 @@ public class ToDoListTest {
 		Collection<Task> tasks = todoList.getCompletedTasks();
 		assertEquals(2, tasks.size());
 	}
-
+	
 	@Test
 	public void testSetPriority() {
 		todoList.addTask(task1);
@@ -76,15 +76,25 @@ public class ToDoListTest {
 		Collection<Task> tasks = todoList.getPriorityTasks(); 
 		int temp = 0;
 		for(Task task:tasks) {
-//			if(temp <= task.getPriority()) {
-//				temp = task.getPriority();
-//			}else {
-//				assertFalse(false);
-//			}
+			//			if(temp <= task.getPriority()) {
+			//				temp = task.getPriority();
+			//			}else {
+			//				assertFalse(false);
+			//			}
 			assertTrue(temp<=task.getPriority());
 			temp = task.getPriority();
 		}
-		
+
 		// compare result -> false
+	}
+	@Test
+	public void testGetIncompletedTasks() {
+		task1.setComplete(false);
+		task3.setComplete(false);
+		todoList.addTask(task1);
+		todoList.addTask(task3);
+
+		Collection<Task> tasks = todoList.getIncompletedTasks();
+		assertEquals(2, tasks.size());
 	}
 }

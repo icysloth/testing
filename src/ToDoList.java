@@ -41,18 +41,19 @@ public class ToDoList {
 			if (task.isComplete() == true) completedTasks.add(task);
 		return completedTasks;
 	}
-
-	public Collection<Task> getUnCompletedTasks() {
-		Collection<Task> completedTasks = new ArrayList<Task> ();
+	
+	public Collection<Task> getIncompletedTasks() {
+		Collection<Task> incompletedTasks = new ArrayList<Task> ();
 		Collection<Task> allTasks = new ArrayList<Task> ();
 		allTasks = getAllTasks();
 		for (Task task: allTasks) 
-			if (task.isComplete() != true) completedTasks.add(task);
-		return completedTasks;
+			if (task.isComplete() != true) incompletedTasks.add(task);
+		return incompletedTasks;
 	}
+	
 	public Collection<Task> getPriorityTasks(){
-		ArrayList<Task> priority = new ArrayList<Task>(getUnCompletedTasks());
-		
+		ArrayList<Task> priority = new ArrayList<Task>(getIncompletedTasks());
+
 		Collection<Task> combined = new ArrayList<Task>();
 		Collection<Task> important = new ArrayList<Task>();
 		Collection<Task> medium = new ArrayList<Task>();
@@ -74,10 +75,11 @@ public class ToDoList {
 
 			}
 		}
-		
+
 		combined.addAll(important);
 		combined.addAll(medium);
 		combined.addAll(least);
 		return combined;
 	}
+
 }

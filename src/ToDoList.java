@@ -39,4 +39,12 @@ public class ToDoList {
 			if (task.isComplete() == true) completedTasks.add(task);
 		return completedTasks;
 	}
+	public Collection<Task> getIncompletedTasks() {
+		Collection<Task> incompletedTasks = new ArrayList<Task> ();
+		Collection<Task> allTasks = new ArrayList<Task> ();
+		allTasks = getAllTasks();
+		for (Task task: allTasks) 
+			if (task.isComplete() != true) incompletedTasks.add(task);
+		return incompletedTasks;
+	}
 }

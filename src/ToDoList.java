@@ -90,7 +90,7 @@ public class ToDoList {
 		Date currentDate = new Date();
 		
 		for (Task incompleteItem : incomplete) {
-			if(currentDate.compareTo(incompleteItem.getDateline()) == 1) {
+			if(currentDate.compareTo(incompleteItem.getDateline())==1) {
 				todayList.add(incompleteItem);
 			}
 		}		

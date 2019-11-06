@@ -1,7 +1,7 @@
 import org.junit.*;
 import static org.junit.Assert.*;
 
-
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
@@ -67,7 +67,7 @@ public class ToDoListTest {
 		Collection<Task> tasks = todoList.getCompletedTasks();
 		assertEquals(2, tasks.size());
 	}
-	
+
 	@Test
 	public void testSetPriority() {
 		todoList.addTask(task1);
@@ -75,7 +75,7 @@ public class ToDoListTest {
 		todoList.addTask(task3);
 
 		Collection<Task> tasks = todoList.getPriorityTasks(); 
-		
+
 		int temp = 0;
 		for(Task task:tasks) {
 			//			if(temp <= task.getPriority()) {
@@ -99,31 +99,36 @@ public class ToDoListTest {
 		Collection<Task> tasks = todoList.getIncompletedTasks();
 		assertEquals(2, tasks.size());
 	}
-	
+
 	@Test 
 	public void testDateSet() {
 		Date deadline = new Date();
 		Task task4 = new Task("testing task", deadline);
-		
+
 		assertEquals(task4.getDateline(),deadline);
 	}
-	
+
 	@Test
 	public void testTodayList() {
 		Date deadline = new Date();
-		Date laterDate = new Date(2019,10,7);
-		Date previousDate = new Date(2019,10,5);
+		final Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -1);
+		Date previousDate = cal.getTime();
+		final Calendar cal2 = Calendar.getInstance();
+		cal2.add(Calendar.DATE, +1);
+		Date laterDate = cal2.getTime();
 		Task task4 = new Task("testing task1", deadline);
 		Task task5 = new Task("testing task2", laterDate);
 		Task task6 = new Task("testing task3", previousDate);
-		
+
 		todoList.addTask(task4);
 		todoList.addTask(task5);
 		todoList.addTask(task6);
-		
+
 		Collection<Task> tasks = todoList.getTodayList();
+		
 		assertTrue(tasks.contains(task4));
 		assertFalse(tasks.contains(task5));
-		assertFalse(tasks.contains(task6));
+		assertTrue(tasks.contains(task6));
 	}
 }

@@ -3,6 +3,7 @@ import static org.junit.Assert.*;
 
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 
 public class ToDoListTest {
@@ -96,5 +97,13 @@ public class ToDoListTest {
 
 		Collection<Task> tasks = todoList.getIncompletedTasks();
 		assertEquals(2, tasks.size());
+	}
+	
+	@Test 
+	public void testDateSet() {
+		Date deadline = new Date();
+		Task task4 = new Task("testing task", deadline);
+		
+		assertEquals(task4.getDateline(),deadline);
 	}
 }

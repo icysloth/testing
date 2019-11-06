@@ -3,6 +3,7 @@ import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Date;
 
 public class ToDoList {
 
@@ -82,4 +83,17 @@ public class ToDoList {
 		return combined;
 	}
 
+	public Collection<Task> getTodayList(){
+		Collection<Task> todayList = new ArrayList<Task>();
+		ArrayList<Task> incomplete = new ArrayList<Task>(getIncompletedTasks());
+		
+		Date currentDate = new Date();
+		
+		for (Task incompleteItem : incomplete) {
+			if(currentDate.compareTo(incompleteItem.getDateline()) == 1) {
+				todayList.add(incompleteItem);
+			}
+		}		
+		return todayList;
+	}
 }

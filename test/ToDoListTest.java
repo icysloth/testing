@@ -17,9 +17,9 @@ public class ToDoListTest {
 	}
 	@Before
 	public void setUp() throws Exception{
-		task1 = new Task ("desc 1",1);
+		task1 = new Task ("desc 1",3);
 		task2 = new Task ("desc 2",2);
-		task3 = new Task ("desc 3",3);
+		task3 = new Task ("desc 3",1);
 
 		todoList = new ToDoList();
 	}
@@ -75,6 +75,7 @@ public class ToDoListTest {
 		todoList.addTask(task3);
 
 		Collection<Task> tasks = todoList.getPriorityTasks(); 
+		
 		int temp = 0;
 		for(Task task:tasks) {
 			//			if(temp <= task.getPriority()) {
@@ -105,5 +106,24 @@ public class ToDoListTest {
 		Task task4 = new Task("testing task", deadline);
 		
 		assertEquals(task4.getDateline(),deadline);
+	}
+	
+	@Test
+	public void testTodayList() {
+		Date deadline = new Date();
+		Date laterDate = new Date(2019,10,7);
+		Date previousDate = new Date(2019,10,5);
+		Task task4 = new Task("testing task1", deadline);
+		Task task5 = new Task("testing task2", laterDate);
+		Task task6 = new Task("testing task3", previousDate);
+		
+		todoList.addTask(task4);
+		todoList.addTask(task5);
+		todoList.addTask(task6);
+		
+		Collection<Task> tasks = todoList.getTodayList();
+		assertTrue(tasks.contains(task4));
+		assertFalse(tasks.contains(task5));
+		assertFalse(tasks.contains(task6));
 	}
 }

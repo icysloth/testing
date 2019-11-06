@@ -29,14 +29,18 @@ public class Task {
 	public Task(String description, int priority) {
 		super();
 		this.description = description;
-		this.priority = priority;
+		if(priority >= 1 || priority <= 3) {
+			this.priority = priority;
+		}
 	}
 
 	public Task(String description, boolean isComplete, int priority) {
 		super();
 		this.description = description;
 		this.isComplete = isComplete;
-		this.priority = priority;
+		if(priority >= 1 || priority <= 3) {
+			this.priority = priority;
+		}
 	}
 
 	public String getDescription() {

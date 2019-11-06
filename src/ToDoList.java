@@ -1,11 +1,13 @@
 import java.util.HashMap;
+import java.util.List;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 
 public class ToDoList {
 
 	private HashMap<String, Task> tasks = new HashMap<String, Task>();
-	
+
 	public void addTask (Task task) {
 		tasks.put(task.getDescription(), task);
 	}
@@ -38,5 +40,44 @@ public class ToDoList {
 		for (Task task: allTasks) 
 			if (task.isComplete() == true) completedTasks.add(task);
 		return completedTasks;
+	}
+
+	public Collection<Task> getUnCompletedTasks() {
+		Collection<Task> completedTasks = new ArrayList<Task> ();
+		Collection<Task> allTasks = new ArrayList<Task> ();
+		allTasks = getAllTasks();
+		for (Task task: allTasks) 
+			if (task.isComplete() != true) completedTasks.add(task);
+		return completedTasks;
+	}
+	public Collection<Task> getPriorityTasks(){
+		ArrayList<Task> priority = new ArrayList<Task>(getUnCompletedTasks());
+		
+		Collection<Task> combined = new ArrayList<Task>();
+		Collection<Task> important = new ArrayList<Task>();
+		Collection<Task> medium = new ArrayList<Task>();
+		Collection<Task> least = new ArrayList<Task>();
+
+		for (Task priorityItem : priority) {
+			switch(priorityItem.getPriority()) {
+			case 1: 
+				important.add(priorityItem);
+				break;
+			case 2: 
+				medium.add(priorityItem);
+				break;
+			case 3: 
+				least.add(priorityItem);
+				break;
+			default:
+				break;
+
+			}
+		}
+		
+		combined.addAll(important);
+		combined.addAll(medium);
+		combined.addAll(least);
+		return combined;
 	}
 }

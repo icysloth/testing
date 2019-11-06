@@ -3,30 +3,31 @@ import static org.junit.Assert.*;
 
 
 import java.util.Collection;
+import java.util.Iterator;
 
 public class ToDoListTest {
 	private Task task1;
 	private Task task2;
 	private Task task3;
 	private ToDoList todoList;
-	
+
 	public ToDoListTest() {
 		super();
 	}
 	@Before
-	 public void setUp() throws Exception{
-		task1 = new Task ("desc 1");
-		task2 = new Task ("desc 2");
-		task3 = new Task ("desc 3");
-		
+	public void setUp() throws Exception{
+		task1 = new Task ("desc 1",1);
+		task2 = new Task ("desc 2",2);
+		task3 = new Task ("desc 3",3);
+
 		todoList = new ToDoList();
 	}
 	@After
-	 public void tearDown() throws Exception{
+	public void tearDown() throws Exception{
 		task1 = null;
 		task2 = null;
 		task3 = null;
-		
+
 		todoList = null;
 	}
 
@@ -50,7 +51,7 @@ public class ToDoListTest {
 		assertNotNull(todoList);
 		todoList.addTask(task1);
 		todoList.addTask(task2);;
-		
+
 		todoList.removeTask(task1.getDescription());
 		assertNull(todoList.getTask(task1.getDescription()));	
 	}
@@ -61,8 +62,29 @@ public class ToDoListTest {
 		todoList.addTask(task1);
 		todoList.addTask(task2);
 		todoList.addTask(task3);
-		
+
 		Collection<Task> tasks = todoList.getCompletedTasks();
 		assertEquals(2, tasks.size());
+	}
+
+	@Test
+	public void testSetPriority() {
+		todoList.addTask(task1);
+		todoList.addTask(task2);
+		todoList.addTask(task3);
+
+		Collection<Task> tasks = todoList.getPriorityTasks(); 
+		int temp = 0;
+		for(Task task:tasks) {
+//			if(temp <= task.getPriority()) {
+//				temp = task.getPriority();
+//			}else {
+//				assertFalse(false);
+//			}
+			assertTrue(temp<=task.getPriority());
+			temp = task.getPriority();
+		}
+		
+		// compare result -> false
 	}
 }
